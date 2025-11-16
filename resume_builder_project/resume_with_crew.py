@@ -2,23 +2,30 @@
 import warnings
 warnings.filterwarnings('ignore')
 
-from crewai import Agent, Task, Crew
+import os
+from crewai import Agent, Task, Crew 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+os.environ["OPENAI_MODEL_NAME"] = 'gpt-4o-mini'
 
 from crewai_tools import (
   FileReadTool,
   ScrapeWebsiteTool,
   MDXSearchTool,
-  SerperDevTool
-)
+  SerperDevTool)
 
-search_tool = SerperDevTool()
+# search_tool = SerperDevTool()
 scrape_tool = ScrapeWebsiteTool()
-read_resume = FileReadTool(file_path='./fake_resume.md')
-semantic_search_resume = MDXSearchTool(mdx='./fake_resume.md')
+read_resume = FileReadTool(file_path='fake_resume.md')
+semantic_search_resume = MDXSearchTool(mdx="fake_resume.md")
+search_tool = SerperDevTool()
+
 
 
 from IPython.display import Markdown, display
-display(Markdown("./fake_resume.md"))
+display(Markdown("fake_resume.md"))
 
 
 # Agent 1: Researcher
@@ -26,7 +33,7 @@ researcher = Agent(
     role="Tech Job Researcher",
     goal="Make sure to do amazing analysis on "
          "job posting to help job applicants",
-    tools = [scrape_tool, search_tool],
+    tools = [scrape_tool,search_tool],
     verbose=True,
     backstory=(
         "As a Job Researcher, your prowess in "
@@ -45,8 +52,8 @@ profiler = Agent(
     role="Personal Profiler for Engineers",
     goal="Do increditble research on job applicants "
          "to help them stand out in the job market",
-    tools = [scrape_tool, search_tool,
-             read_resume, semantic_search_resume],
+    tools = [scrape_tool, semantic_search_resume, search_tool,
+             read_resume],
     verbose=True,
     backstory=(
         "Equipped with analytical prowess, you dissect "
@@ -63,8 +70,8 @@ resume_strategist = Agent(
     role="Resume Strategist for Engineers",
     goal="Find all the best ways to make a "
          "resume stand out in the job market.",
-    tools = [scrape_tool, search_tool,
-             read_resume, semantic_search_resume],
+    tools = [scrape_tool, search_tool, semantic_search_resume,
+             read_resume],
     verbose=True,
     backstory=(
         "With a strategic mind and an eye for detail, you "
@@ -80,8 +87,8 @@ interview_preparer = Agent(
     role="Engineering Interview Preparer",
     goal="Create interview questions and talking points "
          "based on the resume and job requirements",
-    tools = [scrape_tool, search_tool,
-             read_resume, semantic_search_resume],
+    tools = [scrape_tool,search_tool, semantic_search_resume,
+             read_resume],
     verbose=True,
     backstory=(
         "Your role is crucial in anticipating the dynamics of "
@@ -92,7 +99,9 @@ interview_preparer = Agent(
     )
 )
 
-
+# tasks will write to this folder
+OUTPUT_DIR = "crew_outputs"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Task for Researcher Agent: Extract Job Requirements
 research_task = Task(
@@ -145,7 +154,8 @@ resume_strategy_task = Task(
         "An updated resume that effectively highlights the candidate's "
         "qualifications and experiences relevant to the job."
     ),
-    output_file="tailored_resume.md",
+    output_file=os.path.join(OUTPUT_DIR,"tailored_resume.md"),
+    
     context=[research_task, profile_task],
     agent=resume_strategist
 )
@@ -164,7 +174,7 @@ interview_preparation_task = Task(
         "A document containing key questions and talking points "
         "that the candidate should prepare for the initial interview."
     ),
-    output_file="interview_materials.md",
+    output_file=os.path.join(OUTPUT_DIR,"interview_materials.md"),
     context=[research_task, profile_task, resume_strategy_task],
     agent=interview_preparer
 )
@@ -202,11 +212,11 @@ job_application_inputs = {
 result = job_application_crew.kickoff(inputs=job_application_inputs)
 
 
-from IPython.display import Markdown, display
-display(Markdown("./tailored_resume.md"))
+# from IPython.display import Markdown, display
+# display(Markdown("./tailored_resume.md"))
 
 
-display(Markdown("./interview_materials.md"))
+# display(Markdown("./interview_materials.md"))
 
 
 
