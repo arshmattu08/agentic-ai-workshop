@@ -5,7 +5,7 @@ warnings.filterwarnings('ignore')
 import os
 import yaml
 from dotenv import load_dotenv
-from crewai import Agent, Task, Crew
+from crewai import Agent, Task, Crew 
 
 load_dotenv()
 os.environ['OPENAI_MODEL_NAME'] = 'gpt-4o-mini'
@@ -151,7 +151,6 @@ result = crew.kickoff(
 # -- 
 
 
-result.pydantic.dict()
 
 # tasks = result.pydantic.dict()['tasks']
 # df_tasks = pd.DataFrame(tasks)
