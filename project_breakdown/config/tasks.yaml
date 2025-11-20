@@ -5,7 +5,9 @@ task_breakdown:
     task's scope in detail, set achievable timelines, and ensure that
     all dependencies are accounted for:
 
-    {project_requirements}
+    Industry: {industry}
+    Project Objectives: {project_objectives}
+    Project Requirements: {project_requirements}
 
 
     Team members:

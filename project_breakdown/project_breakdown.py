@@ -58,21 +58,29 @@ resource_allocation_agent = Agent(
 )
 # Creating Agents - END - 
 
+OUTPUT_DIR = 'crew_outputs'
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+
+
 # Creating Tasks - START - 
 task_breakdown = Task(
   config=tasks_config['task_breakdown'],
-  agent=project_planning_agent
+  agent=project_planning_agent,
+  output_file= os.path.join(OUTPUT_DIR,"task_breakdown.txt")
 )
 
 time_resource_estimation = Task(
   config=tasks_config['time_resource_estimation'],
-  agent=estimation_agent
+  agent=estimation_agent,
+  output_file= os.path.join(OUTPUT_DIR,"time_estimation.txt")
 )
 
 resource_allocation = Task(
   config=tasks_config['resource_allocation'],
   agent=resource_allocation_agent,
-  output_pydantic=ProjectPlan # This is the structured output we want
+  output_pydantic=ProjectPlan, # This is the structured output we want
+  output_file= os.path.join(OUTPUT_DIR,"resource_allocation.json")
 )
 # Creating Tasks - END - 
 

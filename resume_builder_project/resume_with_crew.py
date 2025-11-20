@@ -51,8 +51,7 @@ profiler = Agent(
     role="Personal Profiler for Engineers",
     goal="Do increditble research on job applicants "
          "to help them stand out in the job market",
-    tools = [scrape_tool, semantic_search_resume, search_tool,
-             read_resume],
+    tools = [read_resume,semantic_search_resume,],
     verbose=True,
     backstory=(
         "Equipped with analytical prowess, you dissect "
@@ -69,8 +68,7 @@ resume_strategist = Agent(
     role="Resume Strategist for Engineers",
     goal="Find all the best ways to make a "
          "resume stand out in the job market.",
-    tools = [scrape_tool, search_tool, semantic_search_resume,
-             read_resume],
+    tools = [scrape_tool, search_tool],
     verbose=True,
     backstory=(
         "With a strategic mind and an eye for detail, you "
@@ -148,6 +146,8 @@ resume_strategy_task = Task(
         "inlcuding the initial summary, work experience, skills, "
         "and education. All to better reflrect the candidates "
         "abilities and how it matches the job posting."
+        "Use the initial resume provided and tweak it to the job posting."
+        
     ),
     expected_output=(
         "An updated resume that effectively highlights the candidate's "
@@ -194,7 +194,7 @@ job_application_crew = Crew(
 )
 
 job_application_inputs = {
-    'job_posting_url': 'https://jobs.lever.co/AIFund/6c82e23e-d954-4dd8-a734-c0c2c5ee00f1?lever-origin=applied&lever-source%5B%5D=AI+Fund',
+    'job_posting_url': 'https://www.simplyhired.com/job/7CXm3UUtuTutKYSln9cGOYmNcAoLpV10NRVrvfLUams8cMCHc-3dGg?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic',
     'github_url': 'https://github.com/joaomdmoura',
     'personal_writeup': """Noah is an accomplished Software
     Engineering Leader with 18 years of experience, specializing in
@@ -206,6 +206,7 @@ job_application_inputs = {
     roles that require a strategic and innovative approach."""
 }
 
+# http://github.com/arshmattu08
 
 ### this execution will take a few minutes to run
 result = job_application_crew.kickoff(inputs=job_application_inputs)
@@ -215,7 +216,7 @@ result = job_application_crew.kickoff(inputs=job_application_inputs)
 # display(Markdown("./tailored_resume.md"))
 
 
-# display(Markdown("./interview_materials.md"))
+
 
 
 
