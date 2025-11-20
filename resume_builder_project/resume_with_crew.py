@@ -18,13 +18,8 @@ from crewai_tools import (
 
 scrape_tool = ScrapeWebsiteTool()
 read_resume = FileReadTool(file_path='fake_resume.md')
-semantic_search_resume = MDXSearchTool(mdx="fake_resume.md")
+semantic_search_resume = MDXSearchTool(mdx='fake_resume.md')
 search_tool = SerperDevTool()
-
-
-
-from IPython.display import Markdown, display
-display(Markdown("fake_resume.md"))
 
 
 # Agent 1: Researcher

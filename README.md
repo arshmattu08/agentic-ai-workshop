@@ -21,8 +21,7 @@ pip install -r requirements.txt
 ## Windows
 
 ### Creating venv
-py -3.11 -m venv <your_venv_name> OR  
-python -m venv <your_venv_name> OR  
+py -3.11 -m venv <your_venv_name> OR    
 for python 3.11 use <path-to-python311>\python.exe" -m venv <your_venv_name>  
 path to python can be found using "where python"  
 
