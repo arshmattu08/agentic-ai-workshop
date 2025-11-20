@@ -17,3 +17,22 @@ shift+cmd+P then choose 'Python: select interpreter'
 
 ### Installing packages into your venv
 pip install -r requirements.txt
+
+## Windows
+
+### Creating venv
+python -m venv <your_venv_name>
+
+### Activating venv
+
+.\<your_venv_name>\Scripts\Activate (Powershell)
+
+### Command to select interpreter
+Press: Ctrl + Shift + P
+Type: Python: Select Interpreter
+Pick the one from your venv 
+If not detected: right click venv on left pane, copy path and paste into interpreter path and enter.
+
+### Installing packages into your venv
+pip install -r requirements.txt
+
