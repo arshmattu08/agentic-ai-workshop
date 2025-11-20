@@ -1,0 +1,7 @@
+crewai
+crewai_tools
+pydantic 
+ipython
+cffi
+cryptography
+
