@@ -1,4 +1,5 @@
 # agentic-ai-workshop
+I hosted this workshop while I was the Vice President of Data Science and Machine Learning Club at IU Indianapolis.
 
 ## Useful Commands:
 
